@@ -162,6 +162,26 @@ public class BaseFunc {
         actions.perform();
     }
 
+    public By scrollToLoadedElements(By locator) {
+        try {
+            Object lastHeight = ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
+
+            while (true) {
+                ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+                Thread.sleep(2000);
+
+                Object newHeight = ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
+                if (newHeight.equals(lastHeight)) {
+                    break;
+                }
+                lastHeight = newHeight;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return locator;
+    }
+
     @AfterEach
     public void closeBrowser() {
         LOOGER.info("Closing browser window");

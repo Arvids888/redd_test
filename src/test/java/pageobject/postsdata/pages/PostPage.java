@@ -81,29 +81,29 @@ public class PostPage {
 //            e.printStackTrace();
 //        }
 
-        try {
-            Object lastHeight = ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
-
-            while (true) {
-                ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-                Thread.sleep(2000);
-
-                Object newHeight = ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
-                if (newHeight.equals(lastHeight)) {
-                    break;
-                }
-                lastHeight = newHeight;
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Object lastHeight = ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
+//
+//            while (true) {
+//                ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+//                Thread.sleep(2000);
+//
+//                Object newHeight = ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
+//                if (newHeight.equals(lastHeight)) {
+//                    break;
+//                }
+//                lastHeight = newHeight;
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
 
 //        baseFunc.findElement(By.tagName("body")).sendKeys(Keys.DOWN);
         WebElement postListCommentsCount = baseFunc.findElement(POST_COMMENTS_COUNT);
 
 //        ((JavascriptExecutor) baseFunc).executeScript("arguments[0].scrollIntoView();", POST_COMMENT_COUNT);
-        List<WebElement> postCommentsCount = postListCommentsCount.findElements(POST_COMMENT_COUNT);
+        List<WebElement> postCommentsCount = postListCommentsCount.findElements(baseFunc.scrollToLoadedElements(POST_COMMENT_COUNT));
 
         Thread.sleep(5000);
         return postCommentsCount.size();
